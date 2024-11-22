@@ -1,6 +1,7 @@
 // Form.tsx
 "use client"
 import { useState, ChangeEvent, FormEvent } from "react";
+import { useRouter } from "next/navigation";
 
 interface ProjectWithoutId {
   project_name: string;
@@ -9,6 +10,8 @@ interface ProjectWithoutId {
 }
 
 const Form = () => {
+  const router = useRouter();
+  
   const [formData, setFormData] = useState<ProjectWithoutId>({
     project_name: "",
     project_github_url: "",
@@ -41,6 +44,8 @@ const Form = () => {
         project_readme: "",
       });
     } 
+
+    router.refresh();
   };
 
   return (

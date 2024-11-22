@@ -1,6 +1,7 @@
 // app/page.tsx
 import Link from 'next/link';
 import Form from './components/Form';
+import { useEffect, useState } from 'react';
 
 interface Project {
   project_id: number;

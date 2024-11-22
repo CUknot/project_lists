@@ -1,4 +1,11 @@
 // lib/projects.ts
+interface Project {
+  project_id: number;
+  project_name: string;
+  project_github_url: string;
+  project_readme: string;
+}
+
 let projects = [
     {
         project_id: 1,
@@ -270,8 +277,13 @@ Firebase: For real-time database and hosting.
     return projects;
   }
   
-  export function addProject(project: { project_id: number; project_name: string; project_github_url: string; project_readme: string }) {
-    projects.push(project);
+  export function addProject(project: Omit<Project, 'project_id'>): Project {
+    const newProject: Project = {
+      project_id: projects.length ? projects[projects.length - 1].project_id + 1 : 1,
+      ...project,
+    };
+    projects.push(newProject);
+    return newProject;
   }
   
   export function getProjectById(id: number) {

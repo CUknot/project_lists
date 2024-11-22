@@ -1,5 +1,6 @@
 // app/page.tsx
 import Link from 'next/link';
+import Form from './components/Form';
 
 interface Project {
   project_id: number;
@@ -23,6 +24,7 @@ export default async function Home() {
 
   return (
     <div className="p-4">
+      
       <h1 className="text-2xl font-bold mb-4">Projects</h1>
 
       <ul>
@@ -34,7 +36,10 @@ export default async function Home() {
           </li>
         ))}
       </ul>
+      
+      <Form/>
 
     </div>
   );
 }
+

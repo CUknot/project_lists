@@ -9,7 +9,7 @@ interface Project {
   }
   
   async function fetchProject(id: string): Promise<Project> {
-    const response = await fetch(`http://localhost:3001/api/projects/${id}`);  // Use template literals to insert the `id` dynamically
+    const response = await fetch(`http://localhost:3001/api/project/${id}`);  // Use template literals to insert the `id` dynamically
     const data = await response.json();
     
     return data.project || null;  // Return null if no project is found

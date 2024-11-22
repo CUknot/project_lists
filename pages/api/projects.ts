@@ -1,5 +1,5 @@
 import type { NextApiRequest, NextApiResponse } from 'next';
-import { getProjects } from '../../lib/projects';
+import { getProjects, addProject} from '../../lib/projects';
 
 
 type Project = {
@@ -26,8 +26,30 @@ export default async function handler(
       message: 'Projects fetched successfully!',
       project: projects, // Return all projects
     });
-  } else {
-    // Handle unsupported methods
-    res.status(405).json({ message: 'Method Not Allowed' });
+  } 
+
+  if (req.method === 'POST') {
+    const { project_name, project_github_url, project_readme } = req.body;
+
+    // Validate request body
+    if (!project_name || !project_github_url || !project_readme) {
+      return res
+        .status(400)
+        .json({ message: 'All fields are required: project_name, project_github_url, project_readme.' });
+    }
+
+    // Add the new project
+    const newProject = addProject({
+      project_name,
+      project_github_url,
+      project_readme,
+    });
+
+    return res.status(201).json({
+      message: 'Project created successfully!',
+      project: newProject,
+    });
   }
+
+  res.status(405).json({ message: 'Method Not Allowed' });
 }
